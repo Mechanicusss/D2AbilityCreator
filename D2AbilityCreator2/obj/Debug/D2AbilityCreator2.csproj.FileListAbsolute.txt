@@ -8,3 +8,12 @@ C:\Users\Niker323\source\repos\D2AbilityCreator2\D2AbilityCreator2\obj\Debug\D2A
 C:\Users\Niker323\source\repos\D2AbilityCreator2\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.csproj.CoreCompileInputs.cache
 C:\Users\Niker323\source\repos\D2AbilityCreator2\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.exe
 C:\Users\Niker323\source\repos\D2AbilityCreator2\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.pdb
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\bin\Debug\D2AbilityCreator2.exe.config
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\bin\Debug\D2AbilityCreator2.exe
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.csproj.AssemblyReference.cache
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.Form1.resources
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.Properties.Resources.resources
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.csproj.GenerateResource.cache
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.csproj.CoreCompileInputs.cache
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.exe
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.pdb
