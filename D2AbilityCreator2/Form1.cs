@@ -49,21 +49,21 @@ namespace D2AbilityCreator2
             "DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING",
             "DOTA_ABILITY_BEHAVIOR_RUNE_TARGET",
             "DOTA_ABILITY_BEHAVIOR_DONT_CANCEL_CHANNEL",
-            "DOTA_ABILITY_LAST_BEHAVIOR",
+            "DOTA_ABILITY_BEHAVIOR_LAST_RESORT_POINT",
+            "DOTA_ABILITY_BEHAVIOR_VECTOR_TARGETING",
         };
         string[] AbilityTypeSelectedList =
         {
-            "DOTA_ABILITY_TYPE_ATTRIBUTES",
-            "DOTA_ABILITY_TYPE_BASIC",
-            "DOTA_ABILITY_TYPE_HIDDEN",
-            "DOTA_ABILITY_TYPE_ULTIMATE",
+            "ABILITY_TYPE_ATTRIBUTES",
+            "ABILITY_TYPE_BASIC",
+            "ABILITY_TYPE_HIDDEN",
+            "ABILITY_TYPE_ULTIMATE",
         };
         string[] UnitTargetTypeSelectedList =
         {
             "DOTA_UNIT_TARGET_HERO",
             "DOTA_UNIT_TARGET_CREEP",
             "DOTA_UNIT_TARGET_BUILDING",
-            "DOTA_UNIT_TARGET_MECHANICAL",
             "DOTA_UNIT_TARGET_COURIER",
             "DOTA_UNIT_TARGET_TREE",
             "DOTA_UNIT_TARGET_CUSTOM",
@@ -71,6 +71,8 @@ namespace D2AbilityCreator2
             "DOTA_UNIT_TARGET_BASIC",
             "DOTA_UNIT_TARGET_NONE",
             "DOTA_UNIT_TARGET_OTHER",
+            "DOTA_UNIT_TARGET_SELF",
+            "DOTA_UNIT_TARGET_HEROES_AND_CREEPS",
         };
         string[] TeamsList =
         {
@@ -82,11 +84,13 @@ namespace D2AbilityCreator2
         };
         string[] DamageTypeSelectedList =
         {
-            "DAMAGE_TYPE_COMPOSITE",
             "DAMAGE_TYPE_HP_REMOVAL",
             "DAMAGE_TYPE_MAGICAL",
             "DAMAGE_TYPE_PHYSICAL",
             "DAMAGE_TYPE_PURE",
+            "DAMAGE_TYPE_NONE",
+            "DAMAGE_TYPE_ALL",
+            "DAMAGE_TYPE_ABILITY_DEFINED",
         };
         string[] Properties =
         {
@@ -732,7 +736,7 @@ namespace D2AbilityCreator2
                         thisdata.check = mycheck.Checked;
                         data[i] = thisdata;
                     }
-                    if (data[i].GetType() == typeof(MyCheckboxString)) 
+                    if (data[i].GetType() == typeof(MyCheckboxString))
                     {
                         MyCheckboxString thisdata = (MyCheckboxString)data[i];
                         CheckBox mycheck = (CheckBox)elementdata[0];
@@ -790,14 +794,14 @@ namespace D2AbilityCreator2
                         //}
                         //else
                         //{
-                            MyCheckboxStringString thisdata = (MyCheckboxStringString)data[i];
-                            CheckBox mycheck = (CheckBox)elementdata[0];
-                            TextBox mytextbox = (TextBox)elementdata[1];
-                            TextBox mytextbox2 = (TextBox)elementdata[2];
-                            thisdata.check = mycheck.Checked;
-                            thisdata.str1 = mytextbox.Text;
-                            thisdata.str2 = mytextbox2.Text;
-                            data[i] = thisdata;
+                        MyCheckboxStringString thisdata = (MyCheckboxStringString)data[i];
+                        CheckBox mycheck = (CheckBox)elementdata[0];
+                        TextBox mytextbox = (TextBox)elementdata[1];
+                        TextBox mytextbox2 = (TextBox)elementdata[2];
+                        thisdata.check = mycheck.Checked;
+                        thisdata.str1 = mytextbox.Text;
+                        thisdata.str2 = mytextbox2.Text;
+                        data[i] = thisdata;
                         //}
                     }
                     if (data[i].GetType() == typeof(MyCheckboxStringStringSelect))
@@ -862,7 +866,7 @@ namespace D2AbilityCreator2
             file.Close();
             //Debug.WriteLine(filetext);
             MyNodeData alldata = new MyNodeData();
-            alldata.name = thisnode.Text.Substring(0,thisnode.Text.Length - 4);
+            alldata.name = thisnode.Text.Substring(0, thisnode.Text.Length - 4);
             alldata.childs = new List<MyNodeData>();
             alldata.data = new Dictionary<string, string>();
             int level = 0;
@@ -885,7 +889,7 @@ namespace D2AbilityCreator2
                         }
                         else
                         {
-                            alldata.AddStringStringData(locstr2,locstr,level);
+                            alldata.AddStringStringData(locstr2, locstr, level);
                             locstr2 = "";
                             locstr = "";
                             writed = false;
@@ -907,7 +911,7 @@ namespace D2AbilityCreator2
                     }
                     else if (filetext[i] == '{')
                     {
-                        alldata.CreateChield(locstr2,level);
+                        alldata.CreateChield(locstr2, level);
                         writed = false;
                         level++;
                         locstr = "";
@@ -955,7 +959,7 @@ namespace D2AbilityCreator2
             }
             for (int i = 0; nowselected.childs.Count > i; i++)
             {
-                CreateNodes(nowselected.childs[i], nodes, level+1);
+                CreateNodes(nowselected.childs[i], nodes, level + 1);
             }
         }
 
@@ -966,7 +970,7 @@ namespace D2AbilityCreator2
             public Dictionary<string, string> data { get; set; }
             public int level { get; set; }
 
-            public void AddStringStringData(string str1, string str2,int level)
+            public void AddStringStringData(string str1, string str2, int level)
             {
                 if (level > this.level)
                 {
@@ -1105,11 +1109,11 @@ namespace D2AbilityCreator2
             splitContainer1.Panel2.Controls.Clear();
             object[] menutag = (object[])menuStrip2.Tag;
             if (menutag != null)
-            for (int i = 0; menutag.Length > i; i++)
-            {
-                ToolStripItem item = (ToolStripItem)menutag[i];
-                item.Dispose();
-            }
+                for (int i = 0; menutag.Length > i; i++)
+                {
+                    ToolStripItem item = (ToolStripItem)menutag[i];
+                    item.Dispose();
+                }
             menuStrip2.Tag = null;
             button1.Enabled = false;
         }
@@ -1143,7 +1147,7 @@ namespace D2AbilityCreator2
             {
                 object[] nodetag = (object[])neednodes[0].Tag;
                 string path = (string)nodetag[0];
-                Process.Start(path.Replace(@"/",@"\"));
+                Process.Start(path.Replace(@"/", @"\"));
             }
             else
             {
@@ -1217,7 +1221,7 @@ namespace D2AbilityCreator2
             {
                 string[] items1 = new string[0];
                 string[] items2 = new string[0];
-                for (int i = 0; items.Length > i; i++ )
+                for (int i = 0; items.Length > i; i++)
                 {
                     if (items[i].ToLower().IndexOf(textbox.Text.ToLower()) != -1)
                     {
@@ -1293,7 +1297,7 @@ namespace D2AbilityCreator2
             newnode.Name = "node" + nodenum;
             nodenum++;
             string[] ThisEventList = new string[2 + EventList.Length];
-            new string[] { "AbilitySpecial", "Modifiers" }.CopyTo(ThisEventList, 0);
+            new string[] { "AbilityValues", "Modifiers" }.CopyTo(ThisEventList, 0);
             EventList.CopyTo(ThisEventList, 2);
             object[] tagobj = new object[] {
                     name,
@@ -1377,7 +1381,7 @@ namespace D2AbilityCreator2
             {
                 for (int i = 0; data.Count > i; i++)
                 {
-                    tagobj[tagobj.Length+i-(data.Count+1)] = new MyCheckboxString() { name = data.ElementAt(i).Key, check = true, str = data.ElementAt(i).Value };
+                    tagobj[tagobj.Length + i - (data.Count + 1)] = new MyCheckboxString() { name = data.ElementAt(i).Key, check = true, str = data.ElementAt(i).Value };
                 }
             }
             tagobj[tagobj.Length - 1] = new MyAddNodes() { items = ThisEventList };
@@ -1618,7 +1622,7 @@ namespace D2AbilityCreator2
                 }
                 tagdata[tagdata.Length - 1] = new MyAddNodes() { items = ThisEventList };
             }
-            else if(data.name == "Modifiers")
+            else if (data.name == "Modifiers")
             {
                 tagdata = new object[] {
                     data.name,
@@ -1791,7 +1795,7 @@ namespace D2AbilityCreator2
             TreeNode selnode = treeView1.SelectedNode;
             object[] nodetag = (object[])selnode.Tag;
             Array.Resize(ref nodetag, nodetag.Length + 1);
-            nodetag[nodetag.Length-1] = new MyCheckboxStringString() { check = false, name = "", str1 = "", str2 = "" };
+            nodetag[nodetag.Length - 1] = new MyCheckboxStringString() { check = false, name = "", str1 = "", str2 = "" };
             selnode.Tag = nodetag;
             treeView1.SelectedNode = null;
             treeView1.SelectedNode = selnode;
@@ -1823,7 +1827,7 @@ namespace D2AbilityCreator2
             nodecount++;
             if (nodecount < 10)
             {
-                newnode.name = "0"+nodecount;
+                newnode.name = "0" + nodecount;
             }
             else
             {
@@ -1933,9 +1937,9 @@ namespace D2AbilityCreator2
                 MyNodeData newnode2 = new MyNodeData();
                 newnode2.name = "Action";
                 newnode2.data = new Dictionary<string, string>();
-                AddAbilityDataByObject(newnode2,AddAbilityDataByObject(newnode, treeView1.SelectedNode.Name));
+                AddAbilityDataByObject(newnode2, AddAbilityDataByObject(newnode, treeView1.SelectedNode.Name));
             }
-            else if(text == "Random")
+            else if (text == "Random")
             {
                 newnode.data["Chance"] = "";
                 newnode.data["PseudoRandom"] = "";
@@ -1968,7 +1972,7 @@ namespace D2AbilityCreator2
             else
             {
                 string[] actprop = (string[])ActionPropertiesList[num];
-                for (int i = 0; actprop.Length > i;i++)
+                for (int i = 0; actprop.Length > i; i++)
                 {
                     newnode.data[actprop[i]] = "";
                 }
@@ -2026,7 +2030,7 @@ namespace D2AbilityCreator2
                     DialogResult dialogResult = MessageBox.Show("Invalid name!\r\nAt the beginning of the item name should be 'item_'\r\nAdd?", "Error", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        TreeNode[] neednode = treeView1.Nodes.Find(CreateItem("item_"+namebox.Text, new Dictionary<string, string>(), null), true);
+                        TreeNode[] neednode = treeView1.Nodes.Find(CreateItem("item_" + namebox.Text, new Dictionary<string, string>(), null), true);
                         treeView1.SelectedNode = neednode[0];
                     }
                 }
@@ -2095,7 +2099,7 @@ namespace D2AbilityCreator2
             }
         }
 
-        public string GetTextByNode(TreeNode node,int level)
+        public string GetTextByNode(TreeNode node, int level)
         {
             object[] data = (object[])node.Tag;
             string miniotstup = "";
@@ -2105,13 +2109,13 @@ namespace D2AbilityCreator2
                 otstup = otstup + "\t";
                 miniotstup = miniotstup + "\t";
             }
-            string readytext = miniotstup+'"' +(string)data[0]+'"'+ "\r\n"+ miniotstup + "{";
+            string readytext = miniotstup + '"' + (string)data[0] + '"' + "\r\n" + miniotstup + "{";
             if (level == 0)
             {
                 readytext = readytext + "\r\n" + otstup + "//Created by D2AbilityCreator 2.1";
             }
             if ((string)data[1] == "ability")
-                readytext = readytext + "\r\n" + otstup + '"'+ "BaseClass" + '"'+ "\t\t" + '"' + "ability_datadriven" + '"';
+                readytext = readytext + "\r\n" + otstup + '"' + "BaseClass" + '"' + "\t\t" + '"' + "ability_datadriven" + '"';
             else if ((string)data[1] == "item")
                 readytext = readytext + "\r\n" + otstup + '"' + "BaseClass" + '"' + "\t\t" + '"' + "item_datadriven" + '"';
             for (int i = 2; data.Length > i; i++)
@@ -2191,11 +2195,11 @@ namespace D2AbilityCreator2
                     }
                 }
             }
-            for (int i = 0; node.Nodes.Count > i;i++)
+            for (int i = 0; node.Nodes.Count > i; i++)
             {
-                readytext = readytext + "\r\n" + GetTextByNode(node.Nodes[i],level+1);
+                readytext = readytext + "\r\n" + GetTextByNode(node.Nodes[i], level + 1);
             }
-            readytext = readytext + "\r\n"+ miniotstup + "}";
+            readytext = readytext + "\r\n" + miniotstup + "}";
             return readytext;
         }
 
@@ -2346,16 +2350,16 @@ namespace D2AbilityCreator2
             {
                 selectednode = e.Node.Name;
                 object[] newdata = new object[0];
-                object[] menutag = new object[0] {};
+                object[] menutag = new object[0] { };
                 //if((string)data[1] == "ability" || (string)data[1] == "item" || (string)data[1] == "abilitydata")
                 //{
-                    ToolStripItem newitem2 = menuStrip2.Items.Add("Create");
-                    newitem2.Margin = new Padding(0,0,splitContainer3.Panel2.Size.Width-94,0);
-                    newitem2.Alignment = ToolStripItemAlignment.Right;
-                    newitem2.Tag = e.Node;
-                    newitem2.Click += CreateText;
-                    Array.Resize(ref menutag, menutag.Length + 1);
-                    menutag[menutag.Length - 1] = newitem2;
+                ToolStripItem newitem2 = menuStrip2.Items.Add("Create");
+                newitem2.Margin = new Padding(0, 0, splitContainer3.Panel2.Size.Width - 94, 0);
+                newitem2.Alignment = ToolStripItemAlignment.Right;
+                newitem2.Tag = e.Node;
+                newitem2.Click += CreateText;
+                Array.Resize(ref menutag, menutag.Length + 1);
+                menutag[menutag.Length - 1] = newitem2;
                 //}
                 ToolStripItem newitem = menuStrip2.Items.Add("Add Line");
                 newitem.Alignment = ToolStripItemAlignment.Right;
@@ -2665,7 +2669,7 @@ namespace D2AbilityCreator2
                         listBox2.DoubleClick += OnAddDoubleClick;
 
                         Array.Resize(ref newdata, newdata.Length + 1);
-                        newdata[i - 2] = new object[] {  };
+                        newdata[i - 2] = new object[] { };
                     }
 
                     if (data[i].GetType() == typeof(MyAddCusttomNode))
@@ -2700,7 +2704,7 @@ namespace D2AbilityCreator2
                         //menutag[menutag.Length - 1] = newitm;
 
                         Array.Resize(ref newdata, newdata.Length + 1);
-                        newdata[i - 2] = new object[] {  };
+                        newdata[i - 2] = new object[] { };
                     }
 
                     if (data[i].GetType() == typeof(MyAddAbilitySpecialNode))
