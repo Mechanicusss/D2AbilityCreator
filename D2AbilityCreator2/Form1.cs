@@ -1101,7 +1101,7 @@ namespace D2AbilityCreator2
                     {
                         //object[] ptag = (object[])neednode[0].Parent.Tag;
                         //Debug.WriteLine(data[0]);
-                        //if ((string)data[0] == "AbilitySpecial")
+                        //if ((string)data[0] == "AbilityValues")
                         //{
                         //    Debug.WriteLine(neednode[0].Nodes.Count);
                         //    //eee;
@@ -1735,7 +1735,7 @@ namespace D2AbilityCreator2
             newnode.Name = "node" + nodenum;
             nodenum++;
             string[] ThisEventList = new string[3 + EventList.Length];
-            new string[] { "ItemRequirements", "AbilitySpecial", "Modifiers" }.CopyTo(ThisEventList, 0);
+            new string[] { "ItemRequirements", "AbilityValues", "Modifiers" }.CopyTo(ThisEventList, 0);
             EventList.CopyTo(ThisEventList, 3);
             object[] tagobj = new object[] {
                     name,
@@ -2036,7 +2036,7 @@ namespace D2AbilityCreator2
                 Array.Resize(ref tagdata, tagdata.Length + 1);
                 tagdata[tagdata.Length - 1] = new MyAddItemRequirementsNode();
             }
-            if (data.name == "AbilitySpecial")
+            if (data.name == "AbilityValues")
             {
                 Array.Resize(ref tagdata, tagdata.Length + 1);
                 //tagdata[tagdata.Length - 2] = new MyCheckboxStringString() { check = true, name = "", str1 = data.data.ElementAt(i).Key, str2 = data.data.ElementAt(i).Value };
@@ -2069,7 +2069,7 @@ namespace D2AbilityCreator2
                 //    Array.Resize(ref newdata, newdata.Length + 1);
                 //    newdata[newdata.Length - 1] = new object[] { mycheck, mytextbox, mytextbox2 };
                 //}
-                tagdata[tagdata.Length - 1] = new MyAddAbilitySpecialNode();
+                tagdata[tagdata.Length - 1] = new MyAddAbilityValuesNode();
             }
             if (data.name == "Action")
             {
@@ -2138,9 +2138,9 @@ namespace D2AbilityCreator2
             }
         }
 
-        public void AddAbilitySpecial(object sender, EventArgs e)
+        public void AddAbilityValues(object sender, EventArgs e)
         {
-            //Debug.WriteLine("AddAbilitySpecial");
+            //Debug.WriteLine("AddAbilityValues");
             //ClearPanels();
             MyNodeData newnode = new MyNodeData();
             int nodecount = treeView1.SelectedNode.Nodes.Count;
@@ -3027,7 +3027,7 @@ namespace D2AbilityCreator2
                         newdata[i - 2] = new object[] { };
                     }
 
-                    if (data[i].GetType() == typeof(MyAddAbilitySpecialNode))
+                    if (data[i].GetType() == typeof(MyAddAbilityValuesNode))
                     {
                         //Debug.WriteLine(e.Node.Nodes.Count);
                         //e.Node.Nodes
@@ -3035,8 +3035,8 @@ namespace D2AbilityCreator2
                         newbutton1.BackColor = Color.LightGray;
                         newbutton1.Location = new Point(30, (30 * (i - 2)) + 3);
                         newbutton1.Size = new Size(200, 23);
-                        newbutton1.Text = "Add AbilitySpecial";
-                        newbutton1.Click += AddAbilitySpecial;
+                        newbutton1.Text = "Add AbilityValues";
+                        newbutton1.Click += AddAbilityValues;
                         newbutton1.Parent = splitContainer1.Panel2;
 
                         Array.Resize(ref newdata, newdata.Length + 1);
@@ -3125,7 +3125,7 @@ namespace D2AbilityCreator2
         }
 
         [Serializable()]
-        public class MyAddAbilitySpecialNode
+        public class MyAddAbilityValuesNode
         {
         }
 

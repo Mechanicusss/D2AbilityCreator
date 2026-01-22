@@ -17,3 +17,4 @@ C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCrea
 C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.csproj.CoreCompileInputs.cache
 C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.exe
 C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\obj\Debug\D2AbilityCreator2.pdb
+C:\Users\Данил\source\repos\D2AbilityCreator\D2AbilityCreator\D2AbilityCreator2\bin\Debug\D2AbilityCreator2.pdb
